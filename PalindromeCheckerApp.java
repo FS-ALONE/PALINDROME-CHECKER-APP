@@ -1,34 +1,36 @@
 public class PalindromeCheckerApp {
 
-    // Recursive function to check palindrome
-    public static boolean isPalindrome(String word, int start, int end) {
-
-        // Base condition
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters don't match
-        if (word.charAt(start) != word.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call
-        return isPalindrome(word, start + 1, end - 1);
-    }
-
     public static void main(String[] args) {
 
-        // Hardcoded string
-        String word = "madam";
+        // Hardcoded string with spaces and mixed case
+        String input = "Never Odd Or Even";
 
-        boolean result = isPalindrome(word, 0, word.length() - 1);
+        // Step 1: Normalize string
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
 
-        if (result) {
-            System.out.println(word + " is a Palindrome.");
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        boolean isPalindrome = true;
+
+        // Step 2: Compare characters
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
+
+        // Step 3: Display result
+        if (isPalindrome) {
+            System.out.println(input + " is a Palindrome (ignoring case and spaces).");
         } 
         else {
-            System.out.println(word + " is NOT a Palindrome.");
+            System.out.println(input + " is NOT a Palindrome.");
         }
     }
 }
