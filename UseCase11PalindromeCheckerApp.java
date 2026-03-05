@@ -1,6 +1,7 @@
-// Service class that contains palindrome logic
-class PalindromeChecker {
+// Palindrome service class
+class PalindromeCheckerApp {
 
+    // Method to check palindrome
     public boolean checkPalindrome(String word) {
 
         int start = 0;
@@ -27,6 +28,7 @@ public class PalindromeCheckerApp {
 
         String word = "madam";
 
+        // Create object of service class
         PalindromeChecker checker = new PalindromeChecker();
 
         boolean result = checker.checkPalindrome(word);
