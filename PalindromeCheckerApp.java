@@ -1,40 +1,71 @@
-// Service class that contains palindrome logic
-class PalindromeChecker {
+import java.util.*;
+
+// Strategy Interface
+interface PalindromeStrategy {
+    boolean checkPalindrome(String word);
+}
+
+// Stack Strategy
+class StackStrategy implements PalindromeStrategy {
 
     public boolean checkPalindrome(String word) {
 
-        int start = 0;
-        int end = word.length() - 1;
+        Stack<Character> stack = new Stack<>();
 
-        while (start < end) {
+        for (char c : word.toCharArray()) {
+            stack.push(c);
+        }
 
-            if (word.charAt(start) != word.charAt(end)) {
+        String reversed = "";
+
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+
+        return word.equals(reversed);
+    }
+}
+
+// Deque Strategy
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean checkPalindrome(String word) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : word.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
     }
 }
 
-// Main application class
+// Main Application
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         String word = "madam";
 
-        PalindromeChecker checker = new PalindromeChecker();
+        // Choose strategy dynamically
+        PalindromeStrategy strategy;
 
-        boolean result = checker.checkPalindrome(word);
+        // Example choice
+        strategy = new StackStrategy();
+        // strategy = new DequeStrategy();
+
+        boolean result = strategy.checkPalindrome(word);
 
         if (result) {
             System.out.println(word + " is a Palindrome.");
-        } 
-        else {
+        } else {
             System.out.println(word + " is NOT a Palindrome.");
         }
     }
